@@ -19,7 +19,8 @@ jobs:
           msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild "C:\Users\ic westgate\Documents\GitHub Repos\Ashley_CI_CD_pipeline\ComicWebsite\ComicWebsite.sln" /p:Configuration=Release
+        run: msbuild "ComicWebsite/path/to/ComicWebsite.sln" /p:Configuration=Release
+
 
   test:
     needs: build
