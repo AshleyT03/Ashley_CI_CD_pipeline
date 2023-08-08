@@ -45,16 +45,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
+        - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
-
-      - name: Build application
-        run: msbuild ./ComicWebsite/ComicWebsite.sln /p:Configuration=Release
-
-      - name: Deploy to staging (replace with actual deployment steps)
+        - name: Deploy to staging (replace with actual deployment steps)
         run: echo "Deploying to staging..."
+        # Replace the above line with your actual deployment commands
+
+        - name: Notify Slack on failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        with:
+            status: 'failure'
+            message: 'Deployment to staging failed'
+            channel: '<your_slack_channel>'
+            webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+
