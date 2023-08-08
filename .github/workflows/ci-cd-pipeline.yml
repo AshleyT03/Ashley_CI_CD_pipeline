@@ -18,8 +18,9 @@ jobs:
         with:
           msbuild-version: 'latest'
 
-      - name: Build application
-        run: msbuild "ComicWebsite/path/to/ComicWebsite.sln" /p:Configuration=Release
+        - name: Build application
+          run: msbuild ./ComicWebsite/ComicWebsite.sln /p:Configuration=Release
+
 
 
   test:
