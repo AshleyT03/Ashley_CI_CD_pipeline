@@ -13,8 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-version: 'latest'
+
       - name: Build application
-        run: dotnet build "ComicWebsite.sln" --configuration Release
+        run: msbuild "ComicWebsite.sln" /p:Configuration=Release
+
 
   test:
     needs: build
@@ -24,8 +30,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-version: 'latest'
+
+      - name: Build application
+        run: msbuild "ComicWebsite.sln" /p:Configuration=Release
+
       - name: Run tests (replace with actual test commands)
-        run: echo "Running tests..."
+        run: nunit-console "path/to/tests.dll" # Replace with actual NUnit test command
 
   deploy:
     needs: test
@@ -34,6 +48,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+        with:
+          msbuild-version: 'latest'
+
+      - name: Build application
+        run: msbuild "ComicWebsite.sln" /p:Configuration=Release
 
       - name: Deploy to staging (replace with actual deployment steps)
         run: echo "Deploying to staging..."
