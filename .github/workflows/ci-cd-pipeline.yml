@@ -45,36 +45,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-        - name: Checkout code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-        - name: Deploy to staging (replace with actual deployment steps)
-        run: echo "Deploying to staging..."
-        # Replace the above line with your actual deployment commands
-
-        - name: Notify Slack on failure
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
         with:
-            status: 'failure'
-            message: 'Deployment to staging failed'
-            channel: '<your_slack_channel>'
-            webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-  notify-on-failure:
-    needs: [build-and-test, deploy]
-    runs-on: windows-latest
-        if: always() && (needs.build-and-test.outputs.notification == 'true' || needs.deploy.outputs.notification == 'true')
-    steps:
-        - name: Checkout code
-        uses: actions/checkout@v2
-        
-        - name: Send Notification
-        run: |
+          msbuild-version: 'latest'
 
-            # Add your notification logic here
+      - name: Build application
+        run: msbuild ./ComicWebsite/ComicWebsite.sln /p:Configuration=Release
 
-            # For example, you might use a messaging service like Slack or send an email to alert the team.
-
-            # Replace the following line with your actual notification command.
-
-            echo "Build or deployment failed! Notify the team."
+      - name: Deploy to staging (replace with actual deployment steps)
+        run: echo "Deploying to staging..."
