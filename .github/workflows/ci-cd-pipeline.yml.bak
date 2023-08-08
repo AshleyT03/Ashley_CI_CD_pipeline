@@ -13,15 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
-
       - name: Build application
-        run: msbuild src/ComicWebsite.sln /p:Configuration=Release
-
-
+        run: dotnet build "ComicWebsite.sln" --configuration Release
 
   test:
     needs: build
@@ -30,15 +23,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
-
-      - name: Build application
-        run: msbuild src/ComicWebsite.sln /p:Configuration=Release
-
 
       - name: Run tests (replace with actual test commands)
         run: echo "Running tests..."
@@ -50,15 +34,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1
-        with:
-          msbuild-version: 'latest'
-
-      - name: Build application
-        run: msbuild src/ComicWebsite.sln /p:Configuration=Release
-
 
       - name: Deploy to staging (replace with actual deployment steps)
         run: echo "Deploying to staging..."
