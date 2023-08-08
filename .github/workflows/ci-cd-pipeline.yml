@@ -19,7 +19,10 @@ jobs:
           msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild "path/to/ComicWebsite.sln" /p:Configuration=Release
+        run: |
+          cd path/to/subdirectory
+          msbuild ComicWebsite.sln /p:Configuration=Release
+
 
   test:
     needs: build
