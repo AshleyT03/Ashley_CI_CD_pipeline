@@ -19,7 +19,9 @@ jobs:
           msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild "ComicWebsite.sln" /p:Configuration=Release
+        run: |
+          cd path/to/subdirectory
+          msbuild ComicWebsite.sln /p:Configuration=Release
 
 
   test:
@@ -36,10 +38,10 @@ jobs:
           msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild "ComicWebsite.sln" /p:Configuration=Release
+        run: msbuild "path/to/ComicWebsite.sln" /p:Configuration=Release
 
       - name: Run tests (replace with actual test commands)
-        run: nunit-console "path/to/tests.dll" # Replace with actual NUnit test command
+        run: echo "Running tests..."
 
   deploy:
     needs: test
@@ -55,7 +57,7 @@ jobs:
           msbuild-version: 'latest'
 
       - name: Build application
-        run: msbuild "ComicWebsite.sln" /p:Configuration=Release
+        run: msbuild "path/to/ComicWebsite.sln" /p:Configuration=Release
 
       - name: Deploy to staging (replace with actual deployment steps)
         run: echo "Deploying to staging..."
